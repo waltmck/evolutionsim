@@ -8,6 +8,7 @@ import sim.SensoryInput;
 public class Simulation{
 	private final int SIZE = 128;
 	private final int NUM_FOOD_INITIAL = 1000;
+   private final int NUM_CREATURE_INITIAL = 2000;
 	private GameObject[][] map;
 
 	public Simulation(){
@@ -15,8 +16,26 @@ public class Simulation{
 	}
 
 	//Fills board with food and creatures
-	public void populate(){
-
+	public void populate(GameObject[][] map){
+      Random rand = new Random();
+      int creatureCount = 0;
+      int foodCount = 0;
+      while(creatureCount < NUM_CREATURE_INITIAL) {
+         int randX = rand.nextInt(128); int randY = rand.nextInt(128); // gets a random (x,y)
+         if (map[randY][randX] == 0) { // checks if (x,y) is empty
+            // fills space with a new creature
+            map[randY][randX] = new Creature(new Genes()); 
+            creatureCount++;
+         } 
+      }
+      while(foodCount < NUM_FOOD_INITIAL) {
+         int randX = rand.nextInt(128); int randY = rand.nextInt(128); // gets a random (x,y)
+         if (map[randY][randX] == 0) { // checks if (x,y) is empty
+            // fills space with a new creature
+            map[randY][randX] = new Food(); 
+            foodCount++;
+         } 
+      } 
 	}
 
 	//Updates all creatures on board
