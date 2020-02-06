@@ -10,6 +10,7 @@ import java.util.Random;
 public class Creature implements GameObject{
 	private Genes genes;
 	private int age;
+	private double health; //between 0 and 1
 
 	public int[] direction;
 
@@ -17,6 +18,7 @@ public class Creature implements GameObject{
 	public Creature(Genes g, int[] d){
 		genes = g;
 		age = 0;
+		health = 1;
 		direction = d;
 	}
 
@@ -59,5 +61,15 @@ public class Creature implements GameObject{
 	//gets the genetic similarity between two objects, between 0 and 1. Returns -2 if input is a food object.
 	public double getSimilarity(GameObject g){
 		return 0;
+	}
+
+	public double getHealth(){
+		return health;
+	}
+
+	// damages creature, returning true of the damage killed it
+	public boolean damage(double dmg){
+		health-=dmg;
+		return health<=0;
 	}
 }

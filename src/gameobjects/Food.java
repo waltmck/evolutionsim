@@ -5,6 +5,7 @@ import sim.Genes;
 //Creature for which evolution is being simulated
 public class Food implements GameObject{
 	private int age;
+	private double health;
 
 	// Creates creature with 
 	public Food(){
@@ -15,6 +16,7 @@ public class Food implements GameObject{
 	public Creature(){
 		genes = new Genes();
 		age = 0;
+		health = 1;
 		
 		//randomly sets direction
 		int r = new Random().nextInt(4);
@@ -51,4 +53,13 @@ public class Food implements GameObject{
 		return -2;
 	}
 
+	public double getHealth(){
+		return health;
+	}
+
+	// damages creature, returning true of the damage killed it
+	public boolean damage(double dmg){
+		health-=dmg;
+		return health<=0;
+	}
 }
