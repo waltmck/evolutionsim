@@ -11,6 +11,8 @@ public interface GameObject{
 	int[] getDirection(); // Returns direction in <x, y> vector format
 
 	void tick(); // Increments age, updates state of GameObject
+
+	double getSimilarity(GameObject g); // returns similarity from 0 to 1. Food returns -2
 }
 
 enum Move{

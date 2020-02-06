@@ -1,23 +1,14 @@
 package sim.gameobjects;
 
-import sim.GameObject;
 import sim.Genes;
-import sim.util.Move;
-
-import java.util.Random;
 
 //Creature for which evolution is being simulated
-public class Creature implements GameObject{
-	private Genes genes;
+public class Food implements GameObject{
 	private int age;
 
-	public int[] direction;
-
 	// Creates creature with 
-	public Creature(Genes g, int[] d){
-		genes = g;
+	public Food(){
 		age = 0;
-		direction = d;
 	}
 
 	//Randomly generates new Creature
@@ -56,8 +47,8 @@ public class Creature implements GameObject{
 
 	}
 
-	//gets the genetic similarity between two objects, between 0 and 1. Returns -2 if input is a food object.
 	public double getSimilarity(GameObject g){
-		return 0;
+		return -2;
 	}
+
 }
