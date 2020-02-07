@@ -1,5 +1,5 @@
 package sim.util;
 
-enum Move{
-	FORWARD, BACK, LEFT, RIGHT, INTERACT, LEFTTURN, RIGHTTURN;
+enum Move {
+	FORWARD, BACK, LEFT, RIGHT, LEFTTURN, RIGHTTURN;
 }

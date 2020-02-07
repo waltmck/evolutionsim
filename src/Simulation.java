@@ -24,14 +24,14 @@ public class Simulation{
       int foodCount = 0;
       while(creatureCount < NUM_CREATURE_INITIAL) {
          int randX = rand.nextInt(128); int randY = rand.nextInt(128); // gets a random (x,y)
-         if (map[randY][randX] == 0) { // checks if (x,y) is empty
+         if (map[randY][randX] == null) { // checks if (x,y) is empty
             map[randY][randX] = new Creature(new Genes()); // fills space with a new creature
             creatureCount++;
          } 
       }
       while(foodCount < NUM_FOOD_INITIAL) {
          int randX = rand.nextInt(128); int randY = rand.nextInt(128); // gets a random (x,y)
-         if (map[randY][randX] == 0) { // checks if (x,y) is empty
+         if (map[randY][randX] == null) { // checks if (x,y) is empty
             map[randY][randX] = new Food(); // fills space with a new food
             foodCount++;
          } 
@@ -40,11 +40,12 @@ public class Simulation{
 
 	//Updates all objects on board
 	public void update(){
-	   Random rand = new Random();
+	   
+      Random rand = new Random();
       int foodCount = 0; // set intial food created this turn to 0
       while(foodCount < FOOD_PER_TURN) { // create the food in this turn
          int randX = rand.nextInt(128); int randY = rand.nextInt(128); // gets a random (x,y)
-         if (map[randY][randX] == 0) { // checks if (x,y) is empty
+         if (map[randY][randX] == null) { // checks if (x,y) is empty
             map[randY][randX] = new Food(); // fills space with a new food
             foodCount++;
          } 
