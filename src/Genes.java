@@ -3,47 +3,102 @@ package sim;
 import java.util.Random;
 
 public class Genes{
-	private final int NUM_HIDDEN_LAYERS; // must be 1 or greater
-   
+   // genes
+   private final int NUM_HIDDEN_LAYERS = 3; // must be 1 or greater
+   // stats
+   private final double MUTATION_FACTOR = 0.2;
+
+   // genes
    private double[][] weightsHidden; // [3][3]
    private double[] weightsPenultimate; // [3]
    private double[][] weightsLast; // [3][6]
-   private double[][][] matrix;
+   // stats
+   private double health; // how much hp the critter has
+   private double defense; // how much the attack recieved is lowered by
+   private double attack; // how much damage the critter does
+   private double regen; // how much hp the critter regenerates per turn
+   private double lifespan; // how long it will live
+   private double totalStats; // total points available to be distributed
 
-	//Randomly generate genes
-	public Genes(){
-	   Random rand = new Random();
-	   for (int i = 0; i < 3; i++) {
+   // Randomly generate genes
+   public Genes(){
+      Random rand = new Random();
+      // randomized neural network weights
+      for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 3; j++) {
-            weightsHidden[i][j] = 10 * rand.nextDouble() - 5;
+            weightsHidden[i][j] = rand.nextDouble() - 0.5;
          }
-	   }
-	   for (int i = 0; i < 3; i++) {
+      }
+      for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 6; j++) {
-            weightsLast[i][j] = 10 * rand.nextDouble() - 5;
+            weightsLast[i][j] = rand.nextDouble() - 0.5;
          }
-	   }
-	   for (int i = 0; i < 3; i++) {
-         weightsPenultimate[i] = 10 * rand.nextDouble() - 5;
-	   }
+      }
+      for (int i = 0; i < 3; i++) {
+         weightsPenultimate[i] = rand.nextDouble() - 0.5;
+      }
+      // randomized starting stats
+      health = rand.nextDouble();
+      defense = rand.nextDouble();
+      attack = rand.nextDouble();
+      regen = rand.nextDouble();
+      lifespan = rand.nextDouble();
+
+      // conversion to proportion
+      totalStats = health + defense + attack + regen + lifespan;
+      health = health / totalStats;
+      defense = defense / totalStats;
+      attack = attack / totalStats;
+      regen = regen / totalStats;
+      lifespan = lifespan / totalStats;
 	}
 
 	//Generates mutated genes from parent genes
-	public Genes(Genes parent){
-      Random rand = new Random();
-      for (int i = 0; i < 3; i++) {
+    public Genes(Genes parent){
+       Random rand = new Random();
+       // transferring traits
+       weightsHidden = Arrays.copyOf(parent.weightsHidden);
+       weightsPenultimate = Arrays.copyOf(parent.weightsPenultimate);
+       weightsLast = Arrays.copyOf(parent.weightsLast);
+       // neural network weights mutation
+       for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 3; j++) {
-            weightsHidden[i][j] += rand.nextDouble() - 0.5;
+            weightsHidden[i][j] += MUTATION_FACTOR * (rand.nextDouble() - 0.5);
          }
-      }
-      for (int i = 0; i < 3; i++) {
+       }
+       for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 6; j++) {
-            weightsLast[i][j] += rand.nextDouble() - 0.5;
+            weightsLast[i][j] += MUTATION_FACTOR * (rand.nextDouble() - 0.5);
          }
-      }
-      for (int i = 0; i < 3; i++) {
-         weightsPenultimate[i] += rand.nextDouble() - 0.5;
-      }
+       }
+       for (int i = 0; i < 3; i++) {
+         weightsPenultimate[i] += MUTATION_FACTOR * (rand.nextDouble() - 0.5);
+       }
+       // stats mutation
+       health = parent.health + MUTATION_FACTOR * (rand.nextDouble() - 0.1);
+       defense = parent.defense + MUTATION_FACTOR * (rand.nextDouble() - 0.1);
+       attack = parent.attack + MUTATION_FACTOR * (rand.nextDouble() - 0.1);
+       regen = parent.regen + MUTATION_FACTOR * (rand.nextDouble() - 0.1);
+       lifespan = parent.lifespan + MUTATION_FACTOR * (rand.nextDouble() - 0.1);
+       // get rid of negative stats
+       if (health < 0) {
+          health = 0;
+       } if (defense < 0) {
+          defense = 0;
+       } if (attack < 0) {
+          attack = 0;
+       } if (regen < 0) {
+          regen = 0;
+       } if (lifespan < 0) {
+          lifespan = 0;
+       }
+       // will covert to a proportion and multiply to get it's numerical stat
+       totalStats = health + defense + attack + regen + lifespan;
+       health = health / totalStats;
+       defense = defense / totalStats;
+       attack = attack / totalStats;
+       regen = regen / totalStats;
+       lifespan = lifespan / totalStats;
 	}
    
    //Generates a move based off of a neural network with an input of SensoryInput and weighted by genes
@@ -97,6 +152,27 @@ public class Genes{
             total += (hiddenWeightLast[j][i] * hiddenLayerPenultimate[j]);
          }
       output[i] = total;  
-      } 
+      }
+      double greatestValue = output[0];
+      int getMove = 0;
+      for (int i = 1; i < 6; i++) {
+         if (greatestValue > output[i]) {
+            greatestValue = output[i];
+            getMove = i;
+         }
+      }
+      if (getMove = 0) {
+         return FORWARD;
+      } else if (getMove = 1) {
+         return BACK;
+      } else if (getMove = 2) {
+         return LEFT;
+      } else if (getMove = 3) {
+         return RIGHT;
+      } else if (getMove = 4) {
+         return LEFTTURN;
+      } else {
+         return RIGHTTURN;
+      }
    }
 }
