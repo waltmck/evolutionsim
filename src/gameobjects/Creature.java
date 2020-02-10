@@ -36,7 +36,7 @@ public class Creature implements GameObject{
 		}
 	}
 
-	// Gets the offspring creature
+	// Gets the offspring creature based on desired direction
 	public Creature getOffspring(int[] d){
 		Creature c = new Creature(new Genes(genes));
 		c.direction = d;

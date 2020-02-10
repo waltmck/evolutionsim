@@ -20,37 +20,35 @@ public class Genes{
    private double lifespan; // how long it will live
    private double totalStats; // total points available to be distributed
 
-   // Randomly generate genes
-   public Genes(){
-      Random rand = new Random();
-      // randomized neural network weights
-      for (int i = 0; i < 3; i++) {
+	//Randomly generate genes
+	public Genes(){
+	   Random rand = new Random();
+	   for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 3; j++) {
-            weightsHidden[i][j] = rand.nextDouble() - 0.5;
+            weightsHidden[i][j] = 10 * rand.nextDouble() - 5;
          }
-      }
-      for (int i = 0; i < 3; i++) {
+	   }
+	   for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 6; j++) {
-            weightsLast[i][j] = rand.nextDouble() - 0.5;
+            weightsLast[i][j] = 10 * rand.nextDouble() - 5;
          }
-      }
-      for (int i = 0; i < 3; i++) {
-         weightsPenultimate[i] = rand.nextDouble() - 0.5;
-      }
-      // randomized starting stats
-      health = rand.nextDouble();
-      defense = rand.nextDouble();
-      attack = rand.nextDouble();
-      regen = rand.nextDouble();
-      lifespan = rand.nextDouble();
+	   }
+	   for (int i = 0; i < 3; i++) {
+         weightsPenultimate[i] = 10 * rand.nextDouble() - 5;
+	   }
 
-      // conversion to proportion
-      totalStats = health + defense + attack + regen + lifespan;
-      health = health / totalStats;
-      defense = defense / totalStats;
-      attack = attack / totalStats;
-      regen = regen / totalStats;
-      lifespan = lifespan / totalStats;
+	   health = rand.nextDouble();
+	   defense = rand.nextDouble();
+	   attack = rand.nextDouble();
+	   regen = rand.nextDouble();
+	   lifespan = rand.nextDouble();
+       // will covert to a proportion and multiply to get it's numerical stat
+       totalStats = health + defense + attack + regen + lifespan;
+       health = health / totalStats;
+       defense = defense / totalStats;
+       attack = attack / totalStats;
+       regen = regen / totalStats;
+       lifespan = lifespan / totalStats;
 	}
 
 	//Generates mutated genes from parent genes
