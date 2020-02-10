@@ -1,16 +1,13 @@
-import sim.GameObject;
-
-
 
 public class SensoryInput {
 
-    public double[][] vision = new int[3][3];//need to change variable type becasue of comparison
+    public double[][] vision = new double[3][3];//need to change variable type becasue of comparison
 
 
     public SensoryInput(int x, int y, GameObject[][] map)
     {
-        int[] direction = map[x][y].direction;//gets directional vector
-        Creature myCreature = map[x][y];
+        int[] direction = map[x][y].getDirection();//gets directional vector
+        Creature myCreature = (Creature) map[x][y];
 
         int rotations = 0;//counter for rotations
         int[] vect = {0, 1};//declares initial vector as north and then rotates counter clockwise
@@ -32,7 +29,7 @@ public class SensoryInput {
                     GameObject obj = map[x+delta[0]][y+delta[1]];
                     if((i == 0)&&(j == 2))
                     {
-                        obj.getHealth(myCreature);//get health of creature
+                        obj.getHealth();//get health of creature
                     }
 
                     else {

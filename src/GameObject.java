@@ -1,12 +1,14 @@
-package sim;
-
 //Interface for any object on the board
 public interface GameObject{
 	Move getMove(SensoryInput input);
 
 	Stats getStats(); // Gets the stats of the creature
 
-	GameObject getOffspring(); //gets the offspring object
+	double getHealth(); // Gets the health of the creature
+
+	GameObject getOffspring(int[] d); //gets the offspring object, facing direction d
+
+	GameObject getOffspring(); //gets the offspring object, facing random direction
 
 	int[] getDirection(); // Returns direction in <x, y> vector format
 

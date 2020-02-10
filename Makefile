@@ -1,2 +1,2 @@
-sim: 
-	javac -d build src/Simulation.java
+simulation: 
+	javac -cp src -d build src/Simulation.java

@@ -1,6 +1,4 @@
-package sim;
-
-import java.util.Random;
+import java.util.*;
 
 public class Genes{
    // genes
@@ -55,9 +53,9 @@ public class Genes{
     public Genes(Genes parent){
        Random rand = new Random();
        // transferring traits
-       weightsHidden = Arrays.copyOf(parent.weightsHidden);
-       weightsPenultimate = Arrays.copyOf(parent.weightsPenultimate);
-       weightsLast = Arrays.copyOf(parent.weightsLast);
+       weightsHidden = Arrays.copyOf(parent.weightsHidden, parent.weightsHidden.length);
+       weightsPenultimate = Arrays.copyOf(parent.weightsPenultimate, parent.weightsPenultimate.length);
+       weightsLast = Arrays.copyOf(parent.weightsLast, parent.weightsLast.length);
        // neural network weights mutation
        for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 3; j++) {
@@ -101,7 +99,7 @@ public class Genes{
    
    //Generates a move based off of a neural network with an input of SensoryInput and weighted by genes
    public Move getMove(SensoryInput input) {
-      double inputLayer[][] = input; // input layer
+      double inputLayer[][] = input.vision; // input layer
       double hiddenLayer[][] = new double[3][3]; // any of the hidden layers (except penultimate)
       double hiddenWeight[][] = weightsHidden; // all of hiddenLayer weights
       for (int layer = 0; layer < NUM_HIDDEN_LAYERS; layer++) {
@@ -149,7 +147,7 @@ public class Genes{
          for (int j = 0; j < 3; j++) {
             total += (hiddenWeightLast[j][i] * hiddenLayerPenultimate[j]);
          }
-      output[i] = total;  
+         output[i] = total;  
       }
       double greatestValue = output[0];
       int getMove = 0;
@@ -159,18 +157,18 @@ public class Genes{
             getMove = i;
          }
       }
-      if (getMove = 0) {
-         return FORWARD;
-      } else if (getMove = 1) {
-         return BACK;
-      } else if (getMove = 2) {
-         return LEFT;
-      } else if (getMove = 3) {
-         return RIGHT;
-      } else if (getMove = 4) {
-         return LEFTTURN;
+      if (getMove == 0) {
+         return Move.FORWARD;
+      } else if (getMove == 1) {
+         return Move.BACK;
+      } else if (getMove == 2) {
+         return Move.LEFT;
+      } else if (getMove == 3) {
+         return Move.RIGHT;
+      } else if (getMove == 4) {
+         return Move.LEFTTURN;
       } else {
-         return RIGHTTURN;
+         return Move.RIGHTTURN;
       }
    }
 }
