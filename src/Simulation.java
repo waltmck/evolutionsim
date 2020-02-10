@@ -47,13 +47,13 @@ public class Simulation{
 
 		for(Iterator<int[]> i = coords.iterator(); i.hasNext();){
 			int[] coord = i.next();
-			update(coord, moves.get(coord));
+			updateCreature(coord, moves.get(coord));
 		}
             	
 	}
 
-	// updates a coordinate, giving preference to that coordinate
-	public void update(int[] coord, Move m){
+	// TODO updates a Creature at coordinate, giving preference to that creature (it moves first in conflict)
+	public void updateCreature(int[] coord, Move m){
 
 	}
 

@@ -1,6 +1,8 @@
 import java.util.Random;
 
 //Creature for which evolution is being simulated
+
+// TODO implement health using genes
 public class Creature implements GameObject{
 	private Genes genes;
 	private int age;
@@ -48,22 +50,22 @@ public class Creature implements GameObject{
 
 	}
 
-	//gets the move from SensoryInput
+	// TODO get move based on genes
 	public Move getMove(SensoryInput input){
 		return null;
 	}
 
-	//Gets creature stats
+	// TODO returns the stats of creature
 	public Stats getStats(){
 		return null;
 	}
 
-	//Tick updates creature
+	// TODO tick updates creature
 	public void tick(){
 		return;
 	}
 
-	//gets the genetic similarity between two objects, between 0 and 1. Returns -2 if input is a food object.
+	// TODO gets the genetic similarity between two objects, between 0 and 1. Returns -2 if input is a food object.
 	public double getSimilarity(GameObject g){
 		return 0;
 	}

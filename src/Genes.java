@@ -20,7 +20,7 @@ public class Genes{
 
 	//Randomly generate genes
 	public Genes(){
-	   Random rand = new Random();
+	   Random rand = Simulation.rand;
 	   for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 3; j++) {
             weightsHidden[i][j] = 10 * rand.nextDouble() - 5;
@@ -51,7 +51,7 @@ public class Genes{
 
 	//Generates mutated genes from parent genes
     public Genes(Genes parent){
-       Random rand = new Random();
+       Random rand = Simulation.rand;
        // transferring traits
        weightsHidden = Arrays.copyOf(parent.weightsHidden, parent.weightsHidden.length);
        weightsPenultimate = Arrays.copyOf(parent.weightsPenultimate, parent.weightsPenultimate.length);

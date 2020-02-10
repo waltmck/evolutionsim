@@ -27,12 +27,11 @@ public class SensoryInput {
                 }
                 if(x+delta[0] < map.length && x+delta[0] >=0 && y+delta[1]<map[0].length && y+delta[1]>=0){
                     GameObject obj = map[x+delta[0]][y+delta[1]];
-                    if((i == 0)&&(j == 2))
-                    {
-                        obj.getHealth();//get health of creature
-                    }
-
-                    else {
+                    if(obj==null){
+                        vision[i+1][j]=0;
+                    } else if((i|j)==0){
+                        vision[i+1][j]=obj.getHealth();//get health of creature
+                    } else {
                         double similarity = obj.getSimilarity(myCreature) + 1;
                         vision[i+1][j] = similarity;
                     }
@@ -40,11 +39,8 @@ public class SensoryInput {
                 else{
                     vision[i+1][j]=3;
                 }
-
-
             }
         }
-
     }
 }
 
