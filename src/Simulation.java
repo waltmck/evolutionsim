@@ -15,10 +15,11 @@ public class Simulation{
 	public Simulation(){
 		map = new GameObject[SIZE][SIZE];
 		rand = new Random();
+		populate();
 	}
 
 	//Fills board with food and creatures
-	public void populate(GameObject[][] map){
+	private void populate(){
       int creatureCount = 0;
       int foodCount = 0;
       while(creatureCount < NUM_CREATURE_INITIAL) {
@@ -54,7 +55,7 @@ public class Simulation{
 	}
 
 	// Updates a Creature at coordinate, giving preference to that creature (it moves first in conflict)
-	public void updateCreature(int[] coord, Move move){
+	private void updateCreature(int[] coord, Move move){
 		Creature c = (Creature) map[coord[0]][coord[1]];
 		int[] direction = c.direction;
 		int[] t;
@@ -114,7 +115,7 @@ public class Simulation{
 	}
 
 	//gets all moves, 
-	public Map<int[], Move> getMovesTick(){
+	private Map<int[], Move> getMovesTick(){
 		Map<int[], Move> m = new HashMap<int[], Move>();
 		for (int i=0; i<SIZE; i++){
 			for (int j=0; j<SIZE; j++){
