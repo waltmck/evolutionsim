@@ -45,20 +45,20 @@ public class Simulation{
 
 	//Updates all objects on board in random order
 	public void update(){
-		Map<int[], Move> m = getMovesTick();
+		Map<int[], Move> moves = getMovesTick();
 
 		//list of creature coords in randomized order
-		List<int[]> coords = Collections.shuffle(new ArrayList<int[]>(m.keySet()), rand);
+		List<int[]> coords = Collections.shuffle(new ArrayList<int[]>(moves.keySet()), rand);
 
 		for(Iterator<int[]> i = coords.iterator(); i.hasNext();){
 			int[] coord = i.next();
-			update(coord);
+			update(coord, moves.get(coord));
 		}
             	
 	}
 
 	// updates a coordinate, giving preference to that coordinate
-	public void update(int[] coord){
+	public void update(int[] coord, Move m){
 
 	}
 
