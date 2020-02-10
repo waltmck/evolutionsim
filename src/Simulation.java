@@ -38,6 +38,10 @@ public class Simulation{
       } 
 	}
 
+	public GameObject[][] getMap(){
+		return map;
+	}
+
 	//Updates all objects on board in random order
 	public void update(){
 		Map<int[], Move> moves = getMovesTick();
