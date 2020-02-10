@@ -8,24 +8,24 @@ public class Genes{
    private double[][] weightsHidden; // [3][3]
    private double[] weightsPenultimate; // [3]
    private double[][] weightsLast; // [3][6]
-	private double[][][] matrix;
+   private double[][][] matrix;
 
 	//Randomly generate genes
 	public Genes(){
-      Random rand = new Random();
-      for (int i = 0; i < 3; i++) {
+	   Random rand = new Random();
+	   for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 3; j++) {
             weightsHidden[i][j] = 10 * rand.nextDouble() - 5;
          }
-      }
-      for (int i = 0; i < 3; i++) {
+	   }
+	   for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 6; j++) {
             weightsLast[i][j] = 10 * rand.nextDouble() - 5;
          }
-      }
-      for (int i = 0; i < 3; i++) {
+	   }
+	   for (int i = 0; i < 3; i++) {
          weightsPenultimate[i] = 10 * rand.nextDouble() - 5;
-      }
+	   }
 	}
 
 	//Generates mutated genes from parent genes

@@ -8,8 +8,8 @@ import sim.SensoryInput;
 public class Simulation{
 	private final int SIZE = 128;
 	private final int NUM_FOOD_INITIAL = 1000;
-   private final int FOOD_PER_TURN = 50;
-   private final int NUM_CREATURE_INITIAL = 2000;
+	private final int FOOD_PER_TURN = 50;
+	private final int NUM_CREATURE_INITIAL = 2000;
 	private GameObject[][] map;
    
 
