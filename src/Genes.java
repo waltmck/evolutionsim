@@ -3,12 +3,13 @@ package sim;
 import java.util.Random;
 
 public class Genes{
-	private final int NUM_HIDDEN_LAYERS; // must be 1 or greater
+	private final int NUM_HIDDEN_LAYERS = 3; // must be 1 or greater
    
    private double[][] weightsHidden; // [3][3]
    private double[] weightsPenultimate; // [3]
    private double[][] weightsLast; // [3][6]
    private double[][][] matrix;
+
 
 	//Randomly generate genes
 	public Genes(){
