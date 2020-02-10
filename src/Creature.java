@@ -60,9 +60,9 @@ public class Creature implements GameObject{
 		return null;
 	}
 
-	// TODO tick updates creature
-	public void tick(){
-		return;
+	// TODO tick updates creature, returns true if creature dies (such as of old age)
+	public boolean tick(){
+		return health>0;
 	}
 
 	// TODO gets the genetic similarity between two objects, between 0 and 1. Returns -2 if input is a food object.
@@ -70,11 +70,13 @@ public class Creature implements GameObject{
 		return 0;
 	}
 
+	// TODO gets health of creature
 	public double getHealth(){
 		return health;
 	}
 
 	// damages creature, returning true of the damage killed it
+	// TODO: make this work with the health gene
 	public boolean damage(double dmg){
 		health-=dmg;
 		return health<=0;

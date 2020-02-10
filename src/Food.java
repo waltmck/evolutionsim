@@ -28,9 +28,9 @@ public class Food implements GameObject{
 		return null;
 	}
 
-	//Tick updates creature
-	public void tick(){
-		return;
+	//Tick updates creature, returns true if creature dies
+	public boolean tick(){
+		return health>0 && age<30;
 	}
 
 	public double getSimilarity(GameObject g){
@@ -50,4 +50,5 @@ public class Food implements GameObject{
 	public int[] getDirection(){
 		return null;
 	}
+	
 }

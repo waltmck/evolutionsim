@@ -12,9 +12,11 @@ public interface GameObject{
 
 	int[] getDirection(); // Returns direction in <x, y> vector format
 
-	void tick(); // Increments age, updates state of GameObject
+	boolean tick(); // Increments age, updates state of GameObject, returns true of creature dies
 
 	double getSimilarity(GameObject g); // returns similarity from 0 to 1. Food returns -2
+
+	boolean damage(double health); // Damage the object by a given amount, returning true if the damage killed it
 }
 
 enum Move{
