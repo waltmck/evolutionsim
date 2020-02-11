@@ -59,6 +59,7 @@ public class Creature implements GameObject{
 
     // TODO tick updates creature, returns true if creature dies (such as of old age)
     public boolean tick(){
+        age++;
         return health<=0 || age >= genes.getLifespan();
     }
 

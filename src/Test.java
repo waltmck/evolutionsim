@@ -2,10 +2,16 @@ public class Test{
     public static void main(String[] args){
         Simulation s = new Simulation();
         int num = 0;
-        while(num<10000){
+        while(true){
             s.update();
-            drawMap(s.getMap());
-            System.out.println("\n\n\n");
+            if(num%60000==0){
+                System.out.println();
+                drawMap(s.getMap());
+                System.out.println("\n\n\n"+s.numCreatures);
+            }
+            if(num%10000==0){
+                System.out.print("#");
+            }
             num++;
         }
     }
@@ -37,9 +43,9 @@ public class Test{
                 if(g==null){
                     System.out.print(" ");
                 } else if(g instanceof Creature){
-                    System.out.print("C");
+                    System.out.print("\u001b[31mC\u001b[37m");
                 } else if(g instanceof Food){
-                    System.out.print("F");
+                    System.out.print("\u001b[32mF\u001b[37m");
                 }
             }
             System.out.println(" " + y);

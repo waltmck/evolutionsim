@@ -3,10 +3,12 @@ import java.util.*;
 
 public class Simulation{
     private int SIZE = 64;
-    private int NUM_FOOD_INITIAL = 60;
-    private int FOOD_PER_TURN = 0;
-    private int NUM_CREATURE_INITIAL = 100;
+    private int NUM_FOOD_INITIAL = 0;
+    private int FOOD_PER_TURN = 100;
+    private int NUM_CREATURE_INITIAL = 0;
+    private int NUM_CREATURE_REGEN = 10;
     private GameObject[][] map;
+    public int numCreatures;
     public static Random rand;
    
 
@@ -18,27 +20,31 @@ public class Simulation{
 
     //Fills board with food and creatures
     private void populate(){
-        int creatureCount = 0;
-        int foodCount = 0;
-        while(creatureCount < NUM_CREATURE_INITIAL) {
-            int randX = rand.nextInt(SIZE); int randY = rand.nextInt(SIZE); // gets a random (x,y)
-            if (map[randY][randX] == null) { // checks if (x,y) is empty
-                map[randY][randX] = new Creature(); // fills space with a new creature
-                creatureCount++;
-            } 
-        }
-        while(foodCount < NUM_FOOD_INITIAL) {
-            int randX = rand.nextInt(SIZE); int randY = rand.nextInt(SIZE); // gets a random (x,y)
-            if (map[randY][randX] == null) { // checks if (x,y) is empty
-                map[randY][randX] = new Food(); // fills space with a new food
-                foodCount++;
-            }
-        } 
+        addCreatures(NUM_CREATURE_INITIAL);
+        addFood(NUM_FOOD_INITIAL);
         Debug.out.println("Finished population");
     }
 
     private void addFood(int numFood){
+        int i = 0;
+        while(i < numFood) {
+            int randX = rand.nextInt(SIZE); int randY = rand.nextInt(SIZE); // gets a random (x,y)
+            if (map[randY][randX] == null) { // checks if (x,y) is empty
+                map[randY][randX] = new Food(); // fills space with a new food
+                i++;
+            }
+        } 
+    }
 
+    private void addCreatures(int numCreatures){
+        int i=0;
+        while(i < numCreatures) {
+            int randX = rand.nextInt(SIZE); int randY = rand.nextInt(SIZE); // gets a random (x,y)
+            if (map[randY][randX] == null) { // checks if (x,y) is empty
+                map[randY][randX] = new Creature(); // fills space with a new creature
+                i++;
+            } 
+        }
     }
 
     public GameObject[][] getMap(){
@@ -48,6 +54,7 @@ public class Simulation{
     //Updates all objects on board in random order
     public void update(){
         Debug.out.println("updating");
+
         Map<int[], Move> moves = getMovesTick();
 
         //list of creature coords in randomized order
@@ -59,6 +66,16 @@ public class Simulation{
             int[] coord = i.next();
             updateCreature(coord, moves.get(coord));
         }
+
+        numCreatures = coords.size();
+
+        if(numCreatures==0){
+            addCreatures(NUM_CREATURE_REGEN);
+            numCreatures += NUM_CREATURE_REGEN;
+        }
+
+        addFood(FOOD_PER_TURN);
+
         Debug.out.println("done updating");
     }
 
