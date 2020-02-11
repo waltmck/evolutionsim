@@ -178,4 +178,8 @@ public class Genes{
    public double getAttack(){
       return attack;
    }
+
+   public int getLifespan(){
+      return (int)(lifespan*10);
+   }
 }

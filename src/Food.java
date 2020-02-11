@@ -1,5 +1,6 @@
 //Creature for which evolution is being simulated
 public class Food implements GameObject{
+	private static final int FOOD_LIFESPAN = 5;
 	private int age;
 	private double health;
 
@@ -25,7 +26,8 @@ public class Food implements GameObject{
 
 	//Tick updates creature, returns true if creature dies
 	public boolean tick(){
-		return health>0 && age<30;
+		age++;
+		return age>=FOOD_LIFESPAN || health<=0;
 	}
 
 	public double getSimilarity(GameObject g){

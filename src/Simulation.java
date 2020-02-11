@@ -1,13 +1,11 @@
-
-import java.beans.beancontext.BeanContextServiceRevokedEvent;
 import java.util.*;
 
 
 public class Simulation{
-	private final int SIZE = 128;
-	private final int NUM_FOOD_INITIAL = 1000;
-	private final int FOOD_PER_TURN = 50;
-	private final int NUM_CREATURE_INITIAL = 2000;
+	private int SIZE = 64;
+	private int NUM_FOOD_INITIAL = 600;
+	private int FOOD_PER_TURN = 1;
+	private int NUM_CREATURE_INITIAL = 100;
 	private GameObject[][] map;
 	public static Random rand;
    
@@ -23,18 +21,18 @@ public class Simulation{
       int creatureCount = 0;
       int foodCount = 0;
       while(creatureCount < NUM_CREATURE_INITIAL) {
-         int randX = rand.nextInt(128); int randY = rand.nextInt(128); // gets a random (x,y)
+         int randX = rand.nextInt(SIZE); int randY = rand.nextInt(SIZE); // gets a random (x,y)
          if (map[randY][randX] == null) { // checks if (x,y) is empty
             map[randY][randX] = new Creature(); // fills space with a new creature
             creatureCount++;
          } 
       }
       while(foodCount < NUM_FOOD_INITIAL) {
-         int randX = rand.nextInt(128); int randY = rand.nextInt(128); // gets a random (x,y)
+         int randX = rand.nextInt(SIZE); int randY = rand.nextInt(SIZE); // gets a random (x,y)
          if (map[randY][randX] == null) { // checks if (x,y) is empty
             map[randY][randX] = new Food(); // fills space with a new food
             foodCount++;
-         } 
+		 }
 	  } 
 	  Debug.out.println("Finished population");
 	}

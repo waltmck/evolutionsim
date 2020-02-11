@@ -22,6 +22,7 @@ public class Creature implements GameObject{
 	public Creature(){
 		genes = new Genes();
 		age = 0;
+		health = 1;
 		
 		//randomly sets direction
 		int r = Simulation.rand.nextInt(4);
@@ -58,7 +59,7 @@ public class Creature implements GameObject{
 
 	// TODO tick updates creature, returns true if creature dies (such as of old age)
 	public boolean tick(){
-		return health>0;
+		return health<=0 || age >= genes.getLifespan();
 	}
 
 	// TODO gets the genetic similarity between two objects, between 0 and 1. Returns -2 if input is a food object.
