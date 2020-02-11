@@ -2,7 +2,7 @@ public class Test{
     public static void main(String[] args){
         Simulation s = new Simulation();
         int num = 0;
-        while(num<4){
+        while(num<10000){
             s.update();
             drawMap(s.getMap());
             System.out.println("\n\n\n");
