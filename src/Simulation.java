@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Simulation{
 	private int SIZE = 64;
-	private int NUM_FOOD_INITIAL = 600;
-	private int FOOD_PER_TURN = 1;
+	private int NUM_FOOD_INITIAL = 60;
+	private int FOOD_PER_TURN = 0;
 	private int NUM_CREATURE_INITIAL = 100;
 	private GameObject[][] map;
 	public static Random rand;
@@ -79,28 +79,34 @@ public class Simulation{
 						}
 					}
 				}
+				break;
 			case BACK:
 				t = addVectors(coord, new int[]{-direction[0], -direction[1]});
 				if(insideBounds(t) && map[t[0]][t[1]]==null){
 					map[t[0]][t[1]] = c;
 					map[coord[0]][coord[1]] = null;
 				}
+				break;
 			case LEFT:
 				t = addVectors(coord, new int[]{-direction[1], direction[0]});
 				if(insideBounds(t) && map[t[0]][t[1]]==null){
 					map[t[0]][t[1]] = c;
 					map[coord[0]][coord[1]] = null;
 				}
+				break;
 			case RIGHT:
 				t = addVectors(coord, new int[]{direction[1], -direction[0]});
 				if(insideBounds(t) && map[t[0]][t[1]]==null){
 					map[t[0]][t[1]] = c;
 					map[coord[0]][coord[1]] = null;
 				}
+				break;
 			case LEFTTURN:
 				c.direction = new int[]{-direction[1], direction[0]};
+				break;
 			case RIGHTTURN:
 				c.direction = new int[]{direction[1], -direction[0]};
+				break;
 		}
 	}
 
@@ -124,22 +130,18 @@ public class Simulation{
 		Map<int[], Move> m = new HashMap<int[], Move>();
 		for (int i=0; i<SIZE; i++){
 			for (int j=0; j<SIZE; j++){
-				Debug.out.println("("+i+", "+j+")");
 				GameObject obj = map[i][j];
 				if (obj != null){
-					Debug.out.println("Object not null");
 					if(obj.tick()){
 						//if creature dies, remove it.
 						map[i][j] = null;
 					}
 					else if(obj instanceof Creature){
-						Debug.out.println("Object is creature");
-						m.put(new int[]{i, j}, obj.getMove(new SensoryInput(i, j, map))); //this is stalling
+						m.put(new int[]{i, j}, obj.getMove(new SensoryInput(i, j, map)));
 					}
 				}
 			}
 		}
-		Debug.out.println("Finished getting moves tick");
 		return m;
 	}
 }

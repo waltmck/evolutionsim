@@ -180,6 +180,6 @@ public class Genes{
    }
 
    public int getLifespan(){
-      return (int)(lifespan*10);
+      return (int)(lifespan*60);
    }
 }
