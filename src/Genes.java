@@ -20,6 +20,9 @@ public class Genes{
 
 	//Randomly generate genes
 	public Genes(){
+      weightsHidden = new double[3][3];
+      weightsPenultimate = new double[3];
+      weightsLast = new double[3][6];
 	   Random rand = Simulation.rand;
 	   for (int i = 0; i < 3; i++) {
          for (int j = 0; j < 3; j++) {
@@ -170,5 +173,9 @@ public class Genes{
       } else {
          return Move.RIGHTTURN;
       }
+   }
+
+   public double getAttack(){
+      return attack;
    }
 }

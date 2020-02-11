@@ -4,9 +4,12 @@ public class Test{
     public static void main(String[] args){
         Simulation s = new Simulation();
 
-        while(true){
+        int num = 0;
+        while(num<5){
             s.update();
             drawMap(s.getMap());
+            System.out.println("\n\n\n");
+            num++;
         }
     }
 

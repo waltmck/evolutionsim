@@ -2,8 +2,6 @@
 public interface GameObject{
 	Move getMove(SensoryInput input);
 
-	Stats getStats(); // Gets the stats of the creature
-
 	double getHealth(); // Gets the health of the creature
 
 	GameObject getOffspring(int[] d); //gets the offspring object, facing direction d
@@ -17,6 +15,8 @@ public interface GameObject{
 	double getSimilarity(GameObject g); // returns similarity from 0 to 1. Food returns -2
 
 	boolean damage(double health); // Damage the object by a given amount, returning true if the damage killed it
+
+	double getAttack(); //gets the amount of damage done by this creature
 }
 
 enum Move{

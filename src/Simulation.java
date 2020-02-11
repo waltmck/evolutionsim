@@ -35,7 +35,8 @@ public class Simulation{
             map[randY][randX] = new Food(); // fills space with a new food
             foodCount++;
          } 
-      } 
+	  } 
+	  Debug.out.println("Finished population");
 	}
 
 	public GameObject[][] getMap(){
@@ -44,18 +45,19 @@ public class Simulation{
 
 	//Updates all objects on board in random order
 	public void update(){
+		Debug.out.println("updating");
 		Map<int[], Move> moves = getMovesTick();
 
 		//list of creature coords in randomized order
-		List<int[]> coords = new ArrayList<int[]>(moves.keySet()), rand;
+		List<int[]> coords = new ArrayList<int[]>(moves.keySet());
 
-		Collections.shuffle(coords);
+		Collections.shuffle(coords, rand);
 
 		for(Iterator<int[]> i = coords.iterator(); i.hasNext();){
 			int[] coord = i.next();
 			updateCreature(coord, moves.get(coord));
 		}
-            	
+		Debug.out.println("done updating");
 	}
 
 	// Updates a Creature at coordinate, giving preference to that creature (it moves first in conflict)
@@ -63,7 +65,7 @@ public class Simulation{
 		Creature c = (Creature) map[coord[0]][coord[1]];
 		int[] direction = c.direction;
 		int[] t;
-
+		Debug.out.println("updating creature");
 		switch(move){
 			case FORWARD:
 				t = addVectors(coord, direction);
@@ -74,7 +76,7 @@ public class Simulation{
 						map[coord[0]][coord[1]] = null;
 					}
 					else{
-						if(targetObj.damage(c.getStats().attack)){
+						if(targetObj.damage(c.getAttack())){
 							map[t[0]][t[1]] = c.getOffspring();
 						}
 					}
@@ -120,21 +122,26 @@ public class Simulation{
 
 	//gets all moves, 
 	private Map<int[], Move> getMovesTick(){
+		Debug.out.println("getting moves tick");
 		Map<int[], Move> m = new HashMap<int[], Move>();
 		for (int i=0; i<SIZE; i++){
 			for (int j=0; j<SIZE; j++){
+				Debug.out.println("("+i+", "+j+")");
 				GameObject obj = map[i][j];
 				if (obj != null){
+					Debug.out.println("Object not null");
 					if(obj.tick()){
 						//if creature dies, remove it.
 						map[i][j] = null;
 					}
 					else if(obj instanceof Creature){
-						m.put(new int[]{i, j}, obj.getMove(new SensoryInput(i, j, map)));
+						Debug.out.println("Object is creature");
+						m.put(new int[]{i, j}, obj.getMove(new SensoryInput(i, j, map))); //this is stalling
 					}
 				}
 			}
 		}
+		Debug.out.println("Finished getting moves tick");
 		return m;
 	}
 }

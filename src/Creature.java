@@ -52,12 +52,8 @@ public class Creature implements GameObject{
 
 	// TODO get move based on genes
 	public Move getMove(SensoryInput input){
-		return null;
-	}
-
-	// TODO returns the stats of creature
-	public Stats getStats(){
-		return null;
+		Move out = genes.getMove(input);
+		return out;
 	}
 
 	// TODO tick updates creature, returns true if creature dies (such as of old age)
@@ -84,5 +80,9 @@ public class Creature implements GameObject{
 
 	public int[] getDirection(){
 		return direction;
+	}
+
+	public double getAttack(){
+		return genes.getAttack();
 	}
 }

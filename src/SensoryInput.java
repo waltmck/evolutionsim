@@ -1,4 +1,6 @@
 
+import java.util.*;
+
 public class SensoryInput {
 
     public double[][] vision = new double[3][3];//need to change variable type becasue of comparison
@@ -12,13 +14,13 @@ public class SensoryInput {
         int rotations = 0;//counter for rotations
         int[] vect = {0, 1};//declares initial vector as north and then rotates counter clockwise
 
-
-        while(vect != direction)//rotate the vector until it is in the right direction and count how mnay rotaions needed
+        while(!(vect[0]==direction[0]&&vect[1]==direction[1]))//rotate the vector until it is in the right direction and count how mnay rotaions needed
         {
-            vect = new int[]{-vect[1], vect[0]};
+            int tmp = vect[0];
+            vect[0]=-vect[1];
+            vect[1]=tmp;
             rotations++;
         }
-
         for (int i=-1; i<2; i++){
             for(int j=0; j<3; j++){
                 int[] delta={i, j};//declares a new sample vector based on the current position in the array

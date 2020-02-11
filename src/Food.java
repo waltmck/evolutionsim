@@ -23,11 +23,6 @@ public class Food implements GameObject{
 		return null;
 	}
 
-	//Gets creature stats
-	public Stats getStats(){
-		return null;
-	}
-
 	//Tick updates creature, returns true if creature dies
 	public boolean tick(){
 		return health>0 && age<30;
@@ -51,4 +46,7 @@ public class Food implements GameObject{
 		return null;
 	}
 	
+	public double getAttack(){
+		return 0;
+	}
 }
