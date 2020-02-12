@@ -17,6 +17,8 @@ public interface GameObject{
     boolean damage(double health); // Damage the object by a given amount, returning true if the damage killed it
 
     double getAttack(); //gets the amount of damage done by this creature
+
+    Appearance getAppearance();
 }
 
 enum Move{

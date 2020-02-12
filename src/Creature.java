@@ -57,25 +57,37 @@ public class Creature implements GameObject{
         return out;
     }
 
-    // TODO tick updates creature, returns true if creature dies (such as of old age)
+
     public boolean tick(){
+        if (health <= 0){
+            return true;
+        }
         age++;
-        return health<=0 || age >= genes.getLifespan();
+        health = Math.min(health+genes.getRegen(), 1);
+        return age >= genes.getLifespan();
     }
 
     // TODO gets the genetic similarity between two objects, between 0 and 1. Returns -2 if input is a food object.
     public double getSimilarity(GameObject g){
-        return 0;
+        if(g instanceof Food){
+            return -2;
+        } else if(g instanceof Creature) {
+            return Math.min(1, genes.getSimilarity(((Creature) g).getGenes()));
+        } else{
+            throw new RuntimeException("Unknown GameObject type");
+        }
     }
 
-    // TODO gets health of creature
+
     public double getHealth(){
         return health;
     }
 
     // damages creature, returning true of the damage killed it
-    // TODO: make this work with the health gene
+
     public boolean damage(double dmg){
+        dmg -= genes.getDefense();
+        dmg = Math.min(0, dmg);
         health-=dmg;
         return health<=0;
     }
@@ -86,5 +98,24 @@ public class Creature implements GameObject{
 
     public double getAttack(){
         return genes.getAttack();
+    }
+
+    public Appearance getAppearance(){
+        int color = genes.getLargest();
+        if (color == 0) {
+            return new Appearance("\u001b[36mC\u001b[37m");
+        } else if (color == 1) {
+            return new Appearance("\u001b[34mC\u001b[37m");
+        } else if (color == 2) {
+            return new Appearance("\u001b[31mC\u001b[37m");
+        } else if (color == 3) {
+            return new Appearance("\u001b[35mC\u001b[37m");
+        } else {
+            return new Appearance("\u001b[33mC\u001b[37m");
+        }
+    }
+
+    public Genes getGenes(){
+        return genes;
     }
 }

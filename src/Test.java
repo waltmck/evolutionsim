@@ -4,12 +4,12 @@ public class Test{
         int num = 0;
         while(true){
             s.update();
-            if(num%60000==0){
+            if(num%10000==0 && s.numCreatures > 20){
                 System.out.println();
                 drawMap(s.getMap());
                 System.out.println("\n\n\n"+s.numCreatures);
             }
-            if(num%10000==0){
+            else if(num%10000==0){
                 System.out.print("#");
             }
             num++;
@@ -42,10 +42,8 @@ public class Test{
                 GameObject g = map[x][y];
                 if(g==null){
                     System.out.print(" ");
-                } else if(g instanceof Creature){
-                    System.out.print("\u001b[31mC\u001b[37m");
-                } else if(g instanceof Food){
-                    System.out.print("\u001b[32mF\u001b[37m");
+                } else {
+                    System.out.print(g.getAppearance().textAppearance);
                 }
             }
             System.out.println(" " + y);

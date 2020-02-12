@@ -7,7 +7,8 @@ public class Food implements GameObject{
     // Creates creature with 
     public Food(){
         age = 0;
-        health = 1;
+        health = 0.3;
+
     }
 
     // Gets the offspring creature
@@ -50,5 +51,9 @@ public class Food implements GameObject{
     
     public double getAttack(){
         return 0;
+    }
+
+    public Appearance getAppearance(){
+        return new Appearance("\u001b[32mF\u001b[37m");
     }
 }

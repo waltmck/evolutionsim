@@ -4,7 +4,7 @@ import java.util.*;
 public class Simulation{
     private int SIZE = 64;
     private int NUM_FOOD_INITIAL = 0;
-    private int FOOD_PER_TURN = 100;
+    private int FOOD_PER_TURN = 50;
     private int NUM_CREATURE_INITIAL = 0;
     private int NUM_CREATURE_REGEN = 10;
     private GameObject[][] map;

@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Genes{
     // genes
-    private final int NUM_HIDDEN_LAYERS = 3; // must be 1 or greater
+    private final int NUM_HIDDEN_LAYERS = 10; // must be 1 or greater
     // stats
     private final double MUTATION_FACTOR = 0.2;
     
@@ -178,8 +178,40 @@ public class Genes{
     public double getAttack(){
         return attack;
     }
-    
+
+    public double getHealth() {
+        return health;
+    }
+
+    public double getRegen() {
+        return regen;
+    }
+
+    public double getDefense() {
+        return defense;
+    }
+
+    public int getLargest() { // 0 = health, 1 = defense, 2 = attack, 3 = regen, 4 = lifespan
+        if ((health >= defense) && (health >= attack) && (health >= regen) && (health >= lifespan)) {
+            return 0;
+        } else if ((defense >= health) && (defense >= attack) && (defense >= regen) && (defense >= lifespan)) {
+            return 1;
+        } else if ((attack >= health) && (attack >= defense) && (attack >= regen) && (attack >= lifespan)) {
+            return 2;
+        } else if ((regen >= health) && (regen >= defense) && (regen >= attack) && (regen >= lifespan)) {
+            return 3;
+        } else {
+            return 4;
+        }
+    }
+
     public int getLifespan(){
         return (int)(lifespan*1000);
+    }
+
+    //Gets the genetic similarity between 0 and 1
+    public double getSimilarity(Genes g2){
+        return (Math.pow((attack - g2.attack),2)+ Math.pow((defense - g2.defense),2) + Math.pow((health - g2.health),2)
+                + Math.pow((regen - g2.regen),2) + Math.pow((lifespan - g2.lifespan),2));
     }
 }
