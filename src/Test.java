@@ -1,16 +1,25 @@
+import java.util.*;
+import java.io.*;
+
 public class Test{
-    public static void main(String[] args){
+    public static void main(String[] args) throws FileNotFoundException {
         Simulation s = new Simulation();
         int num = 0;
+        Scanner console = new Scanner(System.in);
+        System.out.print("output file name? ");
+        PrintStream output = new PrintStream(new File(console.nextLine()));
         while(true){
             s.update();
-            if(num%10000==0 && s.numCreatures > 20){
+            if(num%1000000==0){
                 System.out.println();
                 drawMap(s.getMap());
                 System.out.println("\n\n\n"+s.numCreatures);
             }
-            else if(num%10000==0){
-                System.out.print("#");
+            else if(num%1000==0){
+                output.println(s.numCreatures + " ");
+                if (num%20000 == 0) {
+                    System.out.println(num);
+                }
             }
             num++;
         }
