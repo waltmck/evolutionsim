@@ -7,7 +7,7 @@ public class Food implements GameObject{
     // Creates creature with 
     public Food(){
         age = 0;
-        health = 0.3;
+        health = 0.2;
 
     }
 

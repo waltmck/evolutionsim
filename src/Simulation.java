@@ -70,6 +70,7 @@ public class Simulation{
         numCreatures = coords.size();
 
         if(numCreatures==0){
+            System.out.println("Reseeded");
             addCreatures(NUM_CREATURE_REGEN);
             numCreatures += NUM_CREATURE_REGEN;
         }

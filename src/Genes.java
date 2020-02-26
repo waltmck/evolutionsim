@@ -206,7 +206,7 @@ public class Genes{
     }
 
     public int getLifespan(){
-        return (int)(lifespan*1000);
+        return (int)(lifespan*300);
     }
 
     //Gets the genetic similarity between 0 and 1

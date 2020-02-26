@@ -5,20 +5,20 @@ public class Test{
     public static void main(String[] args) throws FileNotFoundException {
         Simulation s = new Simulation();
         int num = 0;
-        Scanner console = new Scanner(System.in);
-        System.out.print("output file name? ");
-        PrintStream output = new PrintStream(new File(console.nextLine()));
+        //Scanner console = new Scanner(System.in);
+        //System.out.print("output file name? ");
+        //PrintStream output = new PrintStream(new File(console.nextLine()));
         while(true){
             s.update();
-            if(num%1000000==0){
+            if(num%1000==0){
                 System.out.println();
-                drawMap(s.getMap());
-                System.out.println("\n\n\n"+s.numCreatures);
+                if(s.numCreatures > 15) drawMap(s.getMap());
+                System.out.println("\n"+s.numCreatures);
             }
             else if(num%1000==0){
-                output.println(s.numCreatures + " ");
+                //output.println(s.numCreatures + " ");
                 if (num%20000 == 0) {
-                    System.out.println(num);
+                    System.out.println("Number of creatures: " + s.numCreatures);
                 }
             }
             num++;
