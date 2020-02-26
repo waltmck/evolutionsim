@@ -10,6 +10,7 @@ public class Genes{
     private double[][] weightsHidden; // [3][3]
     private double[] weightsPenultimate; // [3]
     private double[][] weightsLast; // [3][6]
+
     // stats
     private double health; // how much hp the critter has
     private double defense; // how much the attack recieved is lowered by
@@ -211,7 +212,7 @@ public class Genes{
 
     //Gets the genetic similarity between 0 and 1
     public double getSimilarity(Genes g2){
-        return (Math.pow((attack - g2.attack),2)+ Math.pow((defense - g2.defense),2) + Math.pow((health - g2.health),2)
-                + Math.pow((regen - g2.regen),2) + Math.pow((lifespan - g2.lifespan),2));
+        return Math.sqrt((Math.pow((attack - g2.attack),2)+ Math.pow((defense - g2.defense),2) + Math.pow((health - g2.health),2)
+                + Math.pow((regen - g2.regen),2) + Math.pow((lifespan - g2.lifespan),2)));
     }
 }
