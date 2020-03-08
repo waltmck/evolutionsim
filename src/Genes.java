@@ -1,6 +1,8 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Genes{
+public class Genes implements Serializable{
+    public static final long serialVersionUID = 1;
     // genes
     private final int NUM_HIDDEN_LAYERS = 10; // must be 1 or greater
     // stats
