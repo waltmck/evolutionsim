@@ -82,3 +82,17 @@ class BehaviorPhenotype{
 
     }
 }
+
+class Util{
+    public static double dotProduct(double[][] mtx1, double[][] mtx2){
+        double total = 0;
+
+        for(int i=0; i<mtx1.length; i++){
+            for(int j=0; j<mtx1[i].length; j++){
+                total += mtx1[i][j]*mtx2[i][j];
+            }
+        }
+
+        return total;
+    }
+}
