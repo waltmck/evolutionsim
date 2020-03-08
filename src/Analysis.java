@@ -81,9 +81,11 @@ class BehaviorPhenotype {
     private double aggression;
     private double foodPreference;
     private double kinship;
+
     public BehaviorPhenotype(Genes g) {
 
     }
+}
 
 
 
