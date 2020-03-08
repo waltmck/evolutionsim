@@ -90,6 +90,48 @@ class BehaviorPhenotype {
 
 
 class Util{
+    private static final double[][] backStrafeMatrix = {
+        {-1, -1, -1},
+        {-1, -1, -1},
+        { 0,  0,  0}
+    };
+
+    private static final double[][] leftTurnMatrix = {
+        { 0, 1, 1},
+        { 0, 1, 1},
+        {-1, 0, 1}
+    };
+
+    private static final double[][] rightTurnMatrix = {
+        {1, 1,  0},
+        {1, 1,  0},
+        {1, 0, -1}
+    };
+
+    private static final double[][] forwardStrafeMatrix = {
+        {-1, -1, -1},
+        { 0,  0,  0},
+        { 1,  0,  1}
+    };
+
+    private static final double[][] forwardAttackMatrix = {
+        {0,  0, 0},
+        {0, -5, 0},
+        {0,  0, 0}
+    };
+
+    private static final double[][] leftStrafeMatrix = {
+        {1, -1, -1},
+        {1, -1, -1},
+        {0,  0, -1}
+    };
+
+    private static final double[][] rightStrafeMatrix = {
+        {-1, -1, 1},
+        {-1, -1, 1},
+        {-1,  0, 0}
+    };
+
     public static double dotProduct(double[][] mtx1, double[][] mtx2){
         double total = 0;
 
@@ -103,7 +145,7 @@ class Util{
     }
     // only food left
     public double[][] foodTransform(double[][] in) {
-        newFood = new double[3][3];
+        double[][] newFood = new double[3][3];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (!(in[i][j] == -2)) {
@@ -117,7 +159,7 @@ class Util{
     }
     // only creatures left
     public double[][] creatureTransform(double[][] in) {
-        newCreature = new double[3][3];
+        double[][] newCreature = new double[3][3];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (in[i][j] == -2) {
@@ -130,5 +172,3 @@ class Util{
         return newCreature;
     }
 }
-
-
