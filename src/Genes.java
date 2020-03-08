@@ -217,4 +217,65 @@ public class Genes implements Serializable{
         return Math.sqrt((Math.pow((attack - g2.attack),2)+ Math.pow((defense - g2.defense),2) + Math.pow((health - g2.health),2)
                 + Math.pow((regen - g2.regen),2) + Math.pow((lifespan - g2.lifespan),2)));
     }
+
+    public double getMoveAnalysis(double testInput[][]) {
+        double inputLayer[][] = testInput; // input layer
+        double hiddenLayer[][] = new double[3][3]; // any of the hidden layers (except penultimate)
+        double hiddenWeight[][] = weightsHidden; // all of hiddenLayer weights
+        for (int layer = 0; layer < NUM_HIDDEN_LAYERS; layer++) {
+            if (layer == 0) { // for first hidden layer
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        int total = 0;
+                        for (int k = 0; k < 3; k++) {
+                            total += (inputLayer[i][k] * hiddenWeight[k][j]);
+                        }
+                        hiddenLayer[i][j] = total;
+                    }
+                }
+            } else { // for other hidden layers
+                double nextLayer[][] = new double[3][3]; // storage space for the next hidden layer
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        int total = 0;
+                        for (int k = 0; k < 3; k++) {
+                            total += (hiddenLayer[i][k] * hiddenWeight[k][j]);
+                        }
+                        nextLayer[i][j] = total;
+                    }
+                }
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        hiddenLayer[i][j] = nextLayer[i][j];
+                    }
+                }
+            }
+        }
+        double hiddenWeightPenultimate[] = weightsPenultimate; // input to hidden layer 1 weights
+        double hiddenLayerPenultimate[] = new double[3]; // initial hidden layer 1 before moving values
+        for (int i = 0; i < 3; i++) {
+            double total = 0;
+            for (int j = 0; j < 3; j++) {
+                total += (hiddenLayer[i][j] * hiddenWeightPenultimate[i]);
+            }
+            hiddenLayerPenultimate[i] = total;
+        }
+        double hiddenWeightLast[][] = weightsLast;
+        double output[] = new double[6];
+        for (int i = 0; i < 6; i++) {
+            int total = 0;
+            for (int j = 0; j < 3; j++) {
+                total += (hiddenWeightLast[j][i] * hiddenLayerPenultimate[j]);
+            }
+            output[i] = total;
+        }
+        double greatestValue = output[0];
+        double getMove = 0;
+        for (int i = 1; i < 6; i++) {
+            if (greatestValue > output[i]) {
+                greatestValue = output[i];
+                getMove = i;
+            }
+        }
+        return getMove;
 }

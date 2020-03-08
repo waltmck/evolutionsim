@@ -67,12 +67,12 @@ public class Creature implements GameObject{
         return age >= genes.getLifespan();
     }
 
-    // TODO gets the genetic similarity between two objects, between 0 and 1. Returns -2 if input is a food object.
+    // TODO gets the genetic similarity between two objects, between 1 and 2. Returns -2 if input is a food object.
     public double getSimilarity(GameObject g){
         if(g instanceof Food){
             return -2;
         } else if(g instanceof Creature) {
-            return Math.min(1, genes.getSimilarity(((Creature) g).getGenes()));
+            return 1 + Math.min(1, genes.getSimilarity(((Creature) g).getGenes()));
         } else{
             throw new RuntimeException("Unknown GameObject type");
         }

@@ -50,14 +50,11 @@ public class Analysis{
         return Math.sqrt(sumDiffSquared/length);
     }
 
-    //TODO @Peyton returns a behavior phenotype object from genes
-    public static BehaviorPhenotype getBehaviorPhenotype(Genes g){
-        return new BehaviorPhenotype();
-    }
+
 
     // Stores simulation object in filepath inside data directory
     public static void writeSnapshot(Simulation s, String filePath) throws Exception{
-        FileOutputStream fos = new FileOutputStream("../data/" + filePath); 
+        FileOutputStream fos = new FileOutputStream("../data/" + filePath);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         oos.writeObject(new Snapshot(s));
@@ -68,18 +65,44 @@ public class Analysis{
 
     // Reads snapshot object from filepath in data directory
     public static Snapshot readSnapshot(String filePath) throws Exception{
-        FileInputStream fis = new FileInputStream("../data/" + filePath); 
-        ObjectInputStream ois = new ObjectInputStream(fis); 
-              
-        // Method for de-serialization of B's class object 
-        return (Snapshot) ois.readObject(); 
+        FileInputStream fis = new FileInputStream("../data/" + filePath);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+
+        // Method for de-serialization of B's class object
+        return (Snapshot) ois.readObject();
     }
+
+
 }
 
-//TODO @Peyton describes the behavior phenotype of a creature in human readable form
-class BehaviorPhenotype{
-    public BehaviorPhenotype(){
+class BehaviorPhenotype {
+    private static final int NUM_TRIALS = 1000;
 
+    private double aggression;
+    private double foodPreference;
+    private double kinship;
+    public BehaviorPhenotype(Genes g) {
+
+    }
+
+    // only food left
+    public double[][] foodTransform(double[][] in) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (!(in[i][j] == -2)) {
+                    in[i][j] = 0;
+                }
+            }
+        }
+    }
+    public double[][] creatureTransform(double[][] in) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (in[i][j] == -2) {
+                    in[i][j] = 0;
+                }
+            }
+        }
     }
 }
 
@@ -96,3 +119,4 @@ class Util{
         return total;
     }
 }
+
