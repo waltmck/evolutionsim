@@ -94,7 +94,7 @@ class BehaviorPhenotype {
                 }
             }
         }
-        return in[][];
+        return in;
     }
     // only creatures left
     public double[][] creatureTransform(double[][] in) {
@@ -105,7 +105,7 @@ class BehaviorPhenotype {
                 }
             }
         }
-        return in[][];
+        return in;
     }
 }
 
