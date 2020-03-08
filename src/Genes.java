@@ -278,4 +278,5 @@ public class Genes implements Serializable{
             }
         }
         return getMove;
+    }
 }

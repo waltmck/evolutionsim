@@ -87,25 +87,31 @@ class BehaviorPhenotype {
 
     // only food left
     public double[][] foodTransform(double[][] in) {
+        newFood = new double[3][3];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (!(in[i][j] == -2)) {
-                    in[i][j] = 0;
+                    newFood[i][j] = 0;
+                } else if (in[i][j] == -2) {
+                    newFood[i][j] = -2;
                 }
             }
         }
-        return in;
+        return newFood;
     }
     // only creatures left
     public double[][] creatureTransform(double[][] in) {
+        newCreature = new double[3][3];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (in[i][j] == -2) {
-                    in[i][j] = 0;
+                    newCreature[i][j] = 0;
+                } else {
+                    newCreature[i][j] = in[i][j];
                 }
             }
         }
-        return in;
+        return newCreature;
     }
 }
 
