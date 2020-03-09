@@ -223,9 +223,9 @@ class BehaviorPhenotype {
 
 class Util{
     public static final double[][] backStrafeMatrix = {
-        {-1, -1, -1},
-        {-1, -1, -1},
-        { 0,  0,  0}
+        {1, 1, 1},
+        {1, 1, 1},
+        {0, 0, 0}
     };
 
     public static final double[][] leftTurnMatrix = {
@@ -253,15 +253,15 @@ class Util{
     };
 
     public static final double[][] leftStrafeMatrix = {
-        {1, -1, -1},
-        {1, -1, -1},
-        {0,  0, -1}
+        {-1, 1, 1},
+        {-1, 1, 1},
+        { 0, 0, 1}
     };
 
     public static final double[][] rightStrafeMatrix = {
-        {-1, -1, 1},
-        {-1, -1, 1},
-        {-1,  0, 0}
+        {1, 1, -1},
+        {1, 1, -1},
+        {1, 0,  0}
     };
 
     public static double dotProduct(double[][] mtx1, double[][] mtx2){
