@@ -6,7 +6,7 @@ public class Genes implements Serializable{
     // genes
     private final int NUM_HIDDEN_LAYERS = 10; // must be 1 or greater
     // stats
-    private final double MUTATION_FACTOR = 0.01;
+    private final double MUTATION_FACTOR = 0.05;
     
     // genes
     private double[][] weightsHidden; // [3][3]

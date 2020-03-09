@@ -2,19 +2,23 @@ import java.util.*;
 import java.io.*;
 
 public class Analysis{
-    private static final int NUM_POPULATION_STORED = 100;
-    private static final int MIN_POPULATION_STABLE = 100;
-    private static final double MAX_STDEV_STABLE = 5;
+    private static final int NUM_POPULATION_STORED = 150;
+    private static final int MIN_POPULATION_STABLE = 300;
+    private static final double MAX_STDEV_STABLE = 10;
     public static void main(String[] args) throws Exception {
         Simulation s = new Simulation();
         s.update();
         Scanner console = new Scanner(System.in);
-        System.out.print("aggression output file name? ");
+        /* System.out.print("aggression output file name? ");
         PrintStream aggressionOutput = new PrintStream(new File(console.nextLine()));
         System.out.print("food preference output file name? ");
         PrintStream foodPreferenceOutput = new PrintStream(new File(console.nextLine()));
         System.out.print("kinship output file name? ");
-        PrintStream kinshipOutput = new PrintStream(new File(console.nextLine()));
+        PrintStream kinshipOutput = new PrintStream(new File(console.nextLine())); */
+
+        PrintStream aggressionOutput = new PrintStream(new File("testAgg"));
+        PrintStream foodPreferenceOutput = new PrintStream("testFood");
+        PrintStream kinshipOutput = new PrintStream("testKin");
 
         Queue<Integer> populationHistory = new LinkedList<>();
         while (true) {
@@ -89,7 +93,7 @@ public class Analysis{
 }
 
 class BehaviorPhenotype {
-    private static final int NUM_TRIALS = 1000;
+    private static final int NUM_TRIALS = 10000;
 
     private double aggression;
     private double foodPreference;
