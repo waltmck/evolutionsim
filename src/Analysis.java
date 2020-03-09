@@ -20,6 +20,11 @@ public class Analysis{
             PrintStream aggressionOutput = new PrintStream(new File("../data/trial"+trial+"_aggression"));
             PrintStream foodPreferenceOutput = new PrintStream(new File("../data/trial"+trial+"_food"));
             PrintStream kinshipOutput = new PrintStream(new File("../data/trial"+trial+"_kin"));
+
+            PrintStream attackOutput = new PrintStream(new File("../data/trial"+trial+"_attack"));;
+            PrintStream defenseOutput = new PrintStream(new File("../data/trial"+trial+"_defense"));;
+            PrintStream healthOutput = new PrintStream(new File("../data/trial"+trial+"_health"));;
+            PrintStream regenOutput = new PrintStream(new File("../data/trial"+trial+"_regen"));;
     
             Queue<Integer> populationHistory = new LinkedList<>();
             while (true) {
@@ -41,6 +46,11 @@ public class Analysis{
                 aggressionOutput.println(creature.getAggression());
                 foodPreferenceOutput.println(creature.getFoodPreference());
                 kinshipOutput.println(creature.getKinship());
+                regenOutput.println(g.getRegen());
+                attackOutput.println(g.getAttack());
+                defenseOutput.println(g.getDefense());
+                healthOutput.println(g.getHealth());
+
             }
             System.out.println("Trial "+trial+" Snapshot with SIZE: " + snap.genes.size());
         }
