@@ -2,9 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class Analysis{
-    private static final int NUM_POPULATION_STORED = 150;
-    private static final int MIN_POPULATION_STABLE = 300;
-    private static final double MAX_STDEV_STABLE = 10;
+    private static final int NUM_POPULATION_STORED = 500;
+    private static final int MIN_POPULATION_STABLE = 400;
+    private static final double MAX_STDEV_STABLE = 15;
     public static void main(String[] args) throws Exception {
         Simulation s = new Simulation();
         s.update();
