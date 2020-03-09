@@ -17,7 +17,7 @@ public class Analysis{
             if(popHistorySize > NUM_POPULATION_STORED){
                 populationHistory.remove();
                 if(stdev(populationHistory) <= MAX_STDEV_STABLE && s.numCreatures > MIN_POPULATION_STABLE){
-                    writeSnapshot(s, "stable_data");
+                    writeSnapshot(new Snapshot(s), "stable_data");
                     break;
                 }
             }
@@ -53,11 +53,11 @@ public class Analysis{
 
 
     // Stores simulation object in filepath inside data directory
-    public static void writeSnapshot(Simulation s, String filePath) throws Exception{
+    public static void writeSnapshot(Snapshot s, String filePath) throws Exception{
         FileOutputStream fos = new FileOutputStream("../data/" + filePath);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-        oos.writeObject(new Snapshot(s));
+        oos.writeObject(s);
 
         fos.close();
         oos.close();
