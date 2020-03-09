@@ -24,7 +24,7 @@ public class Analysis{
         }
 
         Snapshot snap = readSnapshot("stable_data");
-        System.out.println("SIZE: " + snap.genes.size());
+            System.out.println("SIZE: " + snap.genes.size());
     }
 
     //Takes standard deviation of queue, leaves it as it was
@@ -83,50 +83,165 @@ class BehaviorPhenotype {
     private double kinship;
 
     public BehaviorPhenotype(Genes g) {
+        aggression = 0; // postive is more aggressive, negative is more passive
+        foodPreference = 0; // Positive is herbavore and Negative is Carnivore
+        kinship = 0; // positive means will go away from similar, negative means will go towards
+        for (int i = 0; i < NUM_TRIALS; i++) {
+            double[][] boardState = getInput();
+            double[][] foodState = foodTransform(boardState);
+            double[][] kinState = kinTransform(boardState);
+            double[][] foeState = foeTransform(boardState);
+            double moveMade = g.getMoveAnalysis(boardState);
+            if (moveMade == 0) {
+                foodPreference -= Util.dotProduct(Util.forwardStrafeMatrix, foodState);
+                if (boardState[1][1] == 0) {
+                    aggression -= Util.dotProduct(Util.forwardStrafeMatrix, foeState);
+                    kinship -= Util.dotProduct(Util.forwardStrafeMatrix, kinState);
+                } else {
+                    aggression -= Util.dotProduct(Util.forwardAttackMatrix, foeState);
+                    kinship -= Util.dotProduct(Util.forwardAttackMatrix, kinState);
+                }
+            } else if (moveMade == 1) {
+                foodPreference -= Util.dotProduct(Util.backStrafeMatrix, foodState);
+                aggression -= Util.dotProduct(Util.backStrafeMatrix, foeState);
+                kinship -= Util.dotProduct(Util.backStrafeMatrix, kinState);
+            } else if (moveMade == 2) {
+                foodPreference -= Util.dotProduct(Util.leftStrafeMatrix, foodState);
+                aggression -= Util.dotProduct(Util.leftStrafeMatrix, foeState);
+                kinship -= Util.dotProduct(Util.leftStrafeMatrix, kinState);
+            } else if (moveMade == 3) {
+                foodPreference -= Util.dotProduct(Util.rightStrafeMatrix, foodState);
+                aggression -= Util.dotProduct(Util.rightStrafeMatrix, foeState);
+                kinship -= Util.dotProduct(Util.rightStrafeMatrix, kinState);
+            } else if (moveMade == 4) {
+                foodPreference -= Util.dotProduct(Util.leftTurnMatrix, foodState);
+                aggression -= Util.dotProduct(Util.leftTurnMatrix, foeState);
+                kinship -= Util.dotProduct(Util.leftTurnMatrix, kinState);
+            } else {
+                foodPreference -= Util.dotProduct(Util.rightTurnMatrix, foodState);
+                aggression -= Util.dotProduct(Util.rightTurnMatrix, foeState);
+                kinship -= Util.dotProduct(Util.rightTurnMatrix, kinState);
+            }
+        }
+        aggression = aggression / NUM_TRIALS;
+        foodPreference = foodPreference / NUM_TRIALS;
+        kinship = kinship / NUM_TRIALS;
+    }
 
+    public double[][] getInput() {
+        double inputMatrix[][] = new double[3][3];
+        Random rand = new Random();
+        for (int i = 0; i < 3; i++ ) {
+            for (int j = 0; j < 3; j++) {
+                if ((i == 2) && (j == 1)) {
+                    inputMatrix[i][j] = rand.nextDouble();
+                } else {
+                    if (rand.nextDouble() - 0.5 > 0) {
+                        if (rand.nextDouble() - 0.5 > 0) {
+                            inputMatrix[i][j] = rand.nextDouble() + 1;
+                        } else {
+                            inputMatrix[i][j] = -2;
+                        }
+                    } else {
+                        inputMatrix[i][j] = 0;
+                    }
+                }
+            }
+        }
+        return inputMatrix;
+    }
+    public double getAggression() {
+        return aggression;
+    }
+    public double getFoodPreference() {
+        return foodPreference;
+    }
+    public double getKinship() {
+        return kinship;
+    }
+    // food becomes - 1 and creatures 1
+    public double[][] foodTransform(double[][] in) {
+        double[][] newFood = new double[3][3];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (!(in[i][j] == -2) && !(in[i][j] == 0)) {
+                    newFood[i][j] = 1;
+                } else if (in[i][j] == -2) {
+                    newFood[i][j] = -1;
+                }
+            }
+        }
+        return newFood;
+    }
+    // only creatures left
+    public double[][] kinTransform(double[][] in) {
+        double[][] newCreature = new double[3][3];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if ((in[i][j] == -2) || (in[i][j] == 0)) {
+                    newCreature[i][j] = 0;
+                } else {
+                    newCreature[i][j] = in[i][j] - 2;
+                }
+            }
+        }
+        return newCreature;
+    }
+    public double[][] foeTransform(double[][] in) {
+        double[][] newCreature = new double[3][3];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if ((in[i][j] == -2) || (in[i][j] == 0)) {
+                    newCreature[i][j] = 0;
+                } else {
+                    newCreature[i][j] = in[i][j] - 1;
+                }
+            }
+        }
+        return newCreature;
     }
 }
 
 
 
 class Util{
-    private static final double[][] backStrafeMatrix = {
+    public static final double[][] backStrafeMatrix = {
         {-1, -1, -1},
         {-1, -1, -1},
         { 0,  0,  0}
     };
 
-    private static final double[][] leftTurnMatrix = {
+    public static final double[][] leftTurnMatrix = {
         { 0, 1, 1},
         { 0, 1, 1},
         {-1, 0, 1}
     };
 
-    private static final double[][] rightTurnMatrix = {
+    public static final double[][] rightTurnMatrix = {
         {1, 1,  0},
         {1, 1,  0},
         {1, 0, -1}
     };
 
-    private static final double[][] forwardStrafeMatrix = {
+    public static final double[][] forwardStrafeMatrix = {
         {-1, -1, -1},
         { 0,  0,  0},
         { 1,  0,  1}
     };
 
-    private static final double[][] forwardAttackMatrix = {
+    public static final double[][] forwardAttackMatrix = {
         {0,  0, 0},
         {0, -5, 0},
         {0,  0, 0}
     };
 
-    private static final double[][] leftStrafeMatrix = {
+    public static final double[][] leftStrafeMatrix = {
         {1, -1, -1},
         {1, -1, -1},
         {0,  0, -1}
     };
 
-    private static final double[][] rightStrafeMatrix = {
+    public static final double[][] rightStrafeMatrix = {
         {-1, -1, 1},
         {-1, -1, 1},
         {-1,  0, 0}
@@ -143,32 +258,7 @@ class Util{
 
         return total;
     }
-    // only food left
-    public double[][] foodTransform(double[][] in) {
-        double[][] newFood = new double[3][3];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (!(in[i][j] == -2)) {
-                    newFood[i][j] = 0;
-                } else if (in[i][j] == -2) {
-                    newFood[i][j] = -2;
-                }
-            }
-        }
-        return newFood;
-    }
-    // only creatures left
-    public double[][] creatureTransform(double[][] in) {
-        double[][] newCreature = new double[3][3];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (in[i][j] == -2) {
-                    newCreature[i][j] = 0;
-                } else {
-                    newCreature[i][j] = in[i][j];
-                }
-            }
-        }
-        return newCreature;
+    public Util() {
+
     }
 }
