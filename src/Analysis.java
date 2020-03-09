@@ -8,15 +8,22 @@ public class Analysis{
     public static void main(String[] args) throws Exception {
         Simulation s = new Simulation();
         s.update();
+        Scanner console = new Scanner(System.in);
+        System.out.print("aggression output file name? ");
+        PrintStream aggressionOutput = new PrintStream(new File(console.nextLine()));
+        System.out.print("food preference output file name? ");
+        PrintStream foodPreferenceOutput = new PrintStream(new File(console.nextLine()));
+        System.out.print("kinship output file name? ");
+        PrintStream kinshipOutput = new PrintStream(new File(console.nextLine()));
 
         Queue<Integer> populationHistory = new LinkedList<>();
-        while(true){
+        while (true) {
             s.update();
             populationHistory.add(s.numCreatures);
             int popHistorySize = populationHistory.size();
-            if(popHistorySize > NUM_POPULATION_STORED){
+            if (popHistorySize > NUM_POPULATION_STORED) {
                 populationHistory.remove();
-                if(stdev(populationHistory) <= MAX_STDEV_STABLE && s.numCreatures > MIN_POPULATION_STABLE){
+                if (stdev(populationHistory) <= MAX_STDEV_STABLE && s.numCreatures > MIN_POPULATION_STABLE) {
                     writeSnapshot(new Snapshot(s), "stable_data");
                     break;
                 }
@@ -24,7 +31,13 @@ public class Analysis{
         }
 
         Snapshot snap = readSnapshot("stable_data");
-            System.out.println("SIZE: " + snap.genes.size());
+        System.out.println("SIZE: " + snap.genes.size());
+        for (Genes g : snap.genes) {
+            BehaviorPhenotype creature = new BehaviorPhenotype(g);
+            aggressionOutput.println(creature.getAggression());
+            foodPreferenceOutput.println(creature.getFoodPreference());
+            kinshipOutput.println(creature.getKinship());
+        }
     }
 
     //Takes standard deviation of queue, leaves it as it was
