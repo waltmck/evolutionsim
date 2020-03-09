@@ -36,13 +36,13 @@ public class Analysis{
             }
     
             Snapshot snap = readSnapshot("trial"+trial+"_snapshot");
-            System.out.println("Trial "+trial+" Snapshot with SIZE: " + snap.genes.size());
             for (Genes g : snap.genes) {
                 BehaviorPhenotype creature = new BehaviorPhenotype(g);
                 aggressionOutput.println(creature.getAggression());
                 foodPreferenceOutput.println(creature.getFoodPreference());
                 kinshipOutput.println(creature.getKinship());
             }
+            System.out.println("Trial "+trial+" Snapshot with SIZE: " + snap.genes.size());
         }
     }
 
