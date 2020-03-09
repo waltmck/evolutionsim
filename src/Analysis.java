@@ -17,14 +17,14 @@ public class Analysis{
             System.out.print("kinship output file name? ");
             PrintStream kinshipOutput = new PrintStream(new File(console.nextLine())); */
     
-            PrintStream aggressionOutput = new PrintStream(new File("../data/trial"+trial+"_aggression"));
-            PrintStream foodPreferenceOutput = new PrintStream(new File("../data/trial"+trial+"_food"));
-            PrintStream kinshipOutput = new PrintStream(new File("../data/trial"+trial+"_kin"));
+            PrintStream aggressionOutput = new PrintStream(new File("../data/trial"+trial+"_aggression.txt"));
+            PrintStream foodPreferenceOutput = new PrintStream(new File("../data/trial"+trial+"_food.txt"));
+            PrintStream kinshipOutput = new PrintStream(new File("../data/trial"+trial+"_kin.txt"));
 
-            PrintStream attackOutput = new PrintStream(new File("../data/trial"+trial+"_attack"));;
-            PrintStream defenseOutput = new PrintStream(new File("../data/trial"+trial+"_defense"));;
-            PrintStream healthOutput = new PrintStream(new File("../data/trial"+trial+"_health"));;
-            PrintStream regenOutput = new PrintStream(new File("../data/trial"+trial+"_regen"));;
+            PrintStream attackOutput = new PrintStream(new File("../data/trial"+trial+"_attack.txt"));;
+            PrintStream defenseOutput = new PrintStream(new File("../data/trial"+trial+"_defense.txt"));;
+            PrintStream healthOutput = new PrintStream(new File("../data/trial"+trial+"_health.txt"));;
+            PrintStream regenOutput = new PrintStream(new File("../data/trial"+trial+"_regen.txt"));;
     
             Queue<Integer> populationHistory = new LinkedList<>();
             while (true) {
