@@ -162,8 +162,8 @@ class BehaviorPhenotype {
     // food becomes - 1 and creatures 1
     public double[][] foodTransform(double[][] in) {
         double[][] newFood = new double[3][3];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 if (!(in[i][j] == -2) && !(in[i][j] == 0)) {
                     newFood[i][j] = 1;
                 } else if (in[i][j] == -2) {
@@ -176,8 +176,8 @@ class BehaviorPhenotype {
     // only creatures left
     public double[][] kinTransform(double[][] in) {
         double[][] newCreature = new double[3][3];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 if ((in[i][j] == -2) || (in[i][j] == 0)) {
                     newCreature[i][j] = 0;
                 } else {
@@ -189,8 +189,8 @@ class BehaviorPhenotype {
     }
     public double[][] foeTransform(double[][] in) {
         double[][] newCreature = new double[3][3];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 if ((in[i][j] == -2) || (in[i][j] == 0)) {
                     newCreature[i][j] = 0;
                 } else {
@@ -257,8 +257,5 @@ class Util{
         }
 
         return total;
-    }
-    public Util() {
-
     }
 }
