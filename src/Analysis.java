@@ -25,7 +25,15 @@ public class Analysis{
             PrintStream defenseOutput = new PrintStream(new File("../data/trial"+trial+"_defense.txt"));;
             PrintStream healthOutput = new PrintStream(new File("../data/trial"+trial+"_health.txt"));;
             PrintStream regenOutput = new PrintStream(new File("../data/trial"+trial+"_regen.txt"));;
-    
+
+            aggressionOutput.println("Aggression");
+            foodPreferenceOutput.println("Food");
+            kinshipOutput.println("Kin");
+            regenOutput.println("Regen");
+            attackOutput.println("Attack");
+            defenseOutput.println("Defense");
+            healthOutput.println("Health");
+
             Queue<Integer> populationHistory = new LinkedList<>();
             while (true) {
                 s.update();
