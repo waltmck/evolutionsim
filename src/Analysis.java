@@ -113,6 +113,10 @@ class BehaviorPhenotype {
     private double foodPreference;
     private double kinship;
 
+    private static transient final double AGG_NORMALIZATION = 0.4449987633;
+    private static transient final double FOOD_NORMALIZATION = 0.003179774609;
+    private static transient final double KIN_NORMALIZATION = -0.00003974444966;
+
     public BehaviorPhenotype(Genes g) {
         aggression = 0; // postive is more aggressive, negative is more passive
         foodPreference = 0; // Positive is herbavore and Negative is Carnivore
@@ -154,9 +158,9 @@ class BehaviorPhenotype {
                 kinship += Util.dotProduct(Util.rightTurnMatrix, kinState);
             }
         }
-        aggression = aggression / NUM_TRIALS;
-        foodPreference = foodPreference / NUM_TRIALS;
-        kinship = kinship / NUM_TRIALS;
+        aggression = aggression / NUM_TRIALS - AGG_NORMALIZATION;
+        foodPreference = foodPreference / NUM_TRIALS - FOOD_NORMALIZATION;
+        kinship = kinship / NUM_TRIALS - KIN_NORMALIZATION;
     }
 
     public double[][] getInput() {
