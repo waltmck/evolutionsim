@@ -110,34 +110,34 @@ class BehaviorPhenotype {
             double[][] foeState = foeTransform(boardState);
             double moveMade = g.getMoveAnalysis(boardState);
             if (moveMade == 0) {
-                foodPreference -= Util.dotProduct(Util.forwardStrafeMatrix, foodState);
+                foodPreference += Util.dotProduct(Util.forwardStrafeMatrix, foodState);
                 if (boardState[1][1] == 0) {
-                    aggression -= Util.dotProduct(Util.forwardStrafeMatrix, foeState);
+                    aggression += Util.dotProduct(Util.forwardStrafeMatrix, foeState);
                     kinship -= Util.dotProduct(Util.forwardStrafeMatrix, kinState);
                 } else {
-                    aggression -= Util.dotProduct(Util.forwardAttackMatrix, foeState);
-                    kinship -= Util.dotProduct(Util.forwardAttackMatrix, kinState);
+                    aggression += Util.dotProduct(Util.forwardAttackMatrix, foeState);
+                    kinship += Util.dotProduct(Util.forwardAttackMatrix, kinState);
                 }
             } else if (moveMade == 1) {
-                foodPreference -= Util.dotProduct(Util.backStrafeMatrix, foodState);
-                aggression -= Util.dotProduct(Util.backStrafeMatrix, foeState);
-                kinship -= Util.dotProduct(Util.backStrafeMatrix, kinState);
+                foodPreference += Util.dotProduct(Util.backStrafeMatrix, foodState);
+                aggression += Util.dotProduct(Util.backStrafeMatrix, foeState);
+                kinship += Util.dotProduct(Util.backStrafeMatrix, kinState);
             } else if (moveMade == 2) {
-                foodPreference -= Util.dotProduct(Util.leftStrafeMatrix, foodState);
-                aggression -= Util.dotProduct(Util.leftStrafeMatrix, foeState);
-                kinship -= Util.dotProduct(Util.leftStrafeMatrix, kinState);
+                foodPreference += Util.dotProduct(Util.leftStrafeMatrix, foodState);
+                aggression += Util.dotProduct(Util.leftStrafeMatrix, foeState);
+                kinship += Util.dotProduct(Util.leftStrafeMatrix, kinState);
             } else if (moveMade == 3) {
-                foodPreference -= Util.dotProduct(Util.rightStrafeMatrix, foodState);
-                aggression -= Util.dotProduct(Util.rightStrafeMatrix, foeState);
-                kinship -= Util.dotProduct(Util.rightStrafeMatrix, kinState);
+                foodPreference += Util.dotProduct(Util.rightStrafeMatrix, foodState);
+                aggression += Util.dotProduct(Util.rightStrafeMatrix, foeState);
+                kinship += Util.dotProduct(Util.rightStrafeMatrix, kinState);
             } else if (moveMade == 4) {
-                foodPreference -= Util.dotProduct(Util.leftTurnMatrix, foodState);
-                aggression -= Util.dotProduct(Util.leftTurnMatrix, foeState);
-                kinship -= Util.dotProduct(Util.leftTurnMatrix, kinState);
+                foodPreference += Util.dotProduct(Util.leftTurnMatrix, foodState);
+                aggression += Util.dotProduct(Util.leftTurnMatrix, foeState);
+                kinship += Util.dotProduct(Util.leftTurnMatrix, kinState);
             } else {
-                foodPreference -= Util.dotProduct(Util.rightTurnMatrix, foodState);
-                aggression -= Util.dotProduct(Util.rightTurnMatrix, foeState);
-                kinship -= Util.dotProduct(Util.rightTurnMatrix, kinState);
+                foodPreference += Util.dotProduct(Util.rightTurnMatrix, foodState);
+                aggression += Util.dotProduct(Util.rightTurnMatrix, foeState);
+                kinship += Util.dotProduct(Util.rightTurnMatrix, kinState);
             }
         }
         aggression = aggression / NUM_TRIALS;
