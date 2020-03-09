@@ -198,7 +198,7 @@ class BehaviorPhenotype {
                 if ((in[i][j] == -2) || (in[i][j] == 0)) {
                     newCreature[i][j] = 0;
                 } else {
-                    newCreature[i][j] = in[i][j] - 2;
+                    newCreature[i][j] = in[i][j] - 1.5;
                 }
             }
         }
@@ -211,7 +211,7 @@ class BehaviorPhenotype {
                 if ((in[i][j] == -2) || (in[i][j] == 0)) {
                     newCreature[i][j] = 0;
                 } else {
-                    newCreature[i][j] = in[i][j] - 1;
+                    newCreature[i][j] = -1;
                 }
             }
         }
