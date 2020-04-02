@@ -2,6 +2,9 @@
 build/*
 data/*
 
+#Idea folder
+.idea
+
 # Executables
 *.class
 
